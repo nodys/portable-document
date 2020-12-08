@@ -1,18 +1,28 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <PortableDocument
+      :grid="true"
+      :zoom="3"
+      src="/sample.pdf"
+      @loaded="onLoaded"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import PortableDocument from "@/components/PortableDocument";
 
 export default Vue.extend({
   name: "App",
   components: {
-    HelloWorld
+    PortableDocument
+  },
+
+  methods: {
+    onLoaded() {
+      console.log("on loaded");
+    }
   }
 });
 </script>
@@ -24,6 +34,14 @@ export default Vue.extend({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  padding: 2rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 </style>
