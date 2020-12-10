@@ -9,7 +9,8 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "build:lib": "vue-cli-service build --target lib ./src/index.ts"
+    "build:lib": "vue-cli-service build --target lib ./src/index.ts",
+    "publish": "standard-version && git push --follow-tags origin dev && npm publish"
   },
   "main": "./dist/portable-document.common.js",
   "files": [
@@ -43,6 +44,7 @@
     "prettier": "^1.19.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "standard-version": "^9.0.0",
     "typescript": "~3.9.3",
     "vue-template-compiler": "^2.6.11"
   }
