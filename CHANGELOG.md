@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](http://git.novadiscovery.net:4224///compare/v0.1.0...v0.1.1) (2020-12-10)
+
+
+### Features
+
+* add publish script ([b4000e2](http://git.novadiscovery.net:4224///commit/b4000e21f2be29dd19b4df02aa41fa4ad47ec35e))
+
 ## 0.1.0 (2020-12-10)
 
 
