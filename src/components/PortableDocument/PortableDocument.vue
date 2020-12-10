@@ -16,6 +16,8 @@ import { getDocument, GlobalWorkerOptions } from "pdfjs-dist";
 import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
 import { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist/types/display/api";
 
+import { annotations } from "@/assets/data";
+
 import PortableDocumentAnnotationLayer from "./PortableDocumentAnnotationLayer.vue";
 import PortableDocumentLayout from "./PortableDocumentLayout.vue";
 import PortableDocumentPage from "./PortableDocumentPage.vue";
@@ -38,10 +40,9 @@ export default class PortableDocument extends Vue {
 
   document: PDFDocumentProxy | null = null;
   pages: PDFPageProxy[] = [];
-  annotations: unknown[] = [];
 
-  get layoutMode() {
-    return this.grid ? "grid" : "stack";
+  get annotations() {
+    return annotations;
   }
 
   @Watch("src")

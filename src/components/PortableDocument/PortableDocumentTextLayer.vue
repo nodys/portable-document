@@ -22,7 +22,7 @@ export default class PortableDocumentTextLayer extends Vue {
 
   async renderText() {
     // Set scale (zoom) level
-    const scale = 1.5;
+    const scale = 1;
 
     // Get viewport (dimensions)
     const viewport = this.page.getViewport({ scale });
