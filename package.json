@@ -1,5 +1,6 @@
 {
-  "name": "portable-document",
+  "name": "@novadiscovery/portable-document",
+  "license": "MIT",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,8 +8,15 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build:lib": "vue-cli-service build --target lib ./src/index.ts"
   },
+  "main": "./dist/portable-document.common.js",
+  "files": [
+    "dist/*",
+    "src/types.d.ts"
+  ],
+  "types": "./src/types.d.ts",
   "dependencies": {
     "core-js": "^3.6.5",
     "pdfjs-dist": "git+https://github.com/mozilla/pdfjs-dist.git",
