@@ -24,7 +24,7 @@ export default class PortableDocumentPage extends Vue {
 
   async renderPage() {
     // Set scale (zoom) level
-    const scale = 1.5;
+    const scale = 1;
 
     // Get viewport (dimensions)
     const viewport = this.page.getViewport({ scale });
