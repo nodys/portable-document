@@ -3,7 +3,10 @@
     <PortableDocumentLayout :pages="pages" :grid="grid">
       <PortableDocumentPage slot-scope="{ page }" :page="page">
         <PortableDocumentTextLayer :page="page" />
-        <PortableDocumentAnnotationLayer :annotations="annotations" />
+        <PortableDocumentAnnotationLayer
+          :page="page"
+          :annotations="annotations"
+        />
       </PortableDocumentPage>
     </PortableDocumentLayout>
   </div>
