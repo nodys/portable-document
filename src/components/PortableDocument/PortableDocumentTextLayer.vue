@@ -1,11 +1,15 @@
 <template>
-  <div class="portable-document-text-layer" />
+  <div class="portable-document-text-layer" @mouseup="onMouseUp" />
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { PDFPageProxy } from "pdfjs-dist/types/display/api";
 import { renderTextLayer } from "pdfjs-dist";
+
+import { Anchor } from "@/types/annotations";
+
+import * as selectionUtils from "@/utils/selection.ts";
 
 @Component
 export default class PortableDocumentTextLayer extends Vue {
@@ -18,6 +22,19 @@ export default class PortableDocumentTextLayer extends Vue {
 
   mounted() {
     this.renderText();
+  }
+
+  onMouseUp() {
+    const anchors: Anchor[] = selectionUtils
+      .getAnchorTransformRelativeTo(this.$el)
+      .map(transform => ({
+        page: this.page.pageNumber,
+        transform
+      }));
+    if (anchors.length) {
+      this.$emit("selection", anchors);
+      selectionUtils.unselect();
+    }
   }
 
   async renderText() {
