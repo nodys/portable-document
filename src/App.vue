@@ -6,16 +6,7 @@
       :zoom="3"
       src="/96079ac0e2b9c7245d781ba97d62fdeb4e69c6b8.pdf"
       @loaded="onLoaded"
-    >
-      <!-- <template slot-cope="{ annotation }">
-        <SourceAssertion v-if="annotation.data.type === 'assertion'" />
-        <SourceHiglight
-          v-else-if="annotation.data.type === 'highlight'"
-          :color="annotation.data.color"
-        />
-      </template>
-      <SourceAnnotation slot-cope="{ annotation }" annotation="annotation" /> -->
-    </PortableDocument>
+    />
   </div>
 </template>
 

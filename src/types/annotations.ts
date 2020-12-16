@@ -5,6 +5,10 @@ type Height = number;
 
 export interface Anchor {
   page: number;
+  /**
+   * Defines the position and size of the rectangle that makes up the anchor.
+   * The order of the values corresponds to [X, Y, Width, Height].
+   */
   transform: [X, Y, Width, Height];
 }
 
