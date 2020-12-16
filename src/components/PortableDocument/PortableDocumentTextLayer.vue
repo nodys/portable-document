@@ -9,6 +9,8 @@ import { renderTextLayer } from "pdfjs-dist";
 
 import { Anchor } from "@/types/annotations";
 
+import * as selectionUtils from "@/utils/selection.ts";
+
 @Component
 export default class PortableDocumentTextLayer extends Vue {
   @Prop({ type: Object, required: true }) readonly page!: PDFPageProxy;
@@ -23,28 +25,16 @@ export default class PortableDocumentTextLayer extends Vue {
   }
 
   onMouseUp() {
-    const selection = window.getSelection();
-    const range = selection?.getRangeAt(0);
-    const rects = range?.getClientRects();
-    const page = this.$el.getBoundingClientRect();
-    if (rects) {
-      const anchors: Anchor[] = [];
-      for (let i = 0; i < rects.length; i++) {
-        const rect = rects.item(i);
-        if (rect) {
-          const x = rect.left - page.left;
-          const y = rect.top - page.top;
-          const width = rect.width;
-          const height = rect.height;
-          anchors.push({
-            page: this.page.pageNumber,
-            transform: [x, y, width, height]
-          });
-        }
-      }
+    const anchors: Anchor[] = selectionUtils
+      .getAnchorTransformRelativeTo(this.$el)
+      .map(transform => ({
+        page: this.page.pageNumber,
+        transform
+      }));
+    if (anchors.length) {
       this.$emit("selection", anchors);
+      selectionUtils.unselect();
     }
-    selection?.empty();
   }
 
   async renderText() {
