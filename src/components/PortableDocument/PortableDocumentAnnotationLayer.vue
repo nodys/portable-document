@@ -26,7 +26,8 @@ export default class PortableDocumentAnnotationLayer extends Vue {
 
   get anchors(): Anchor[] {
     return this.annotations.reduce((acc: Anchor[], item) => {
-      const anchors = item.anchors.filter(x => x.page === this.pageNumber);
+      const belongsToPage = (anchor: Anchor) => anchor.page === this.pageNumber;
+      const anchors = item.anchors.filter(belongsToPage);
       return anchors.length ? [...acc, ...anchors] : acc;
     }, []);
   }
