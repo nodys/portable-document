@@ -2,7 +2,7 @@
   <div class="portable-document-annotation-layer">
     <div
       class="portable-document-annotation-layer__anchor"
-      v-for="(anchor, index) in anchors"
+      v-for="(anchor, index) in filteredAnchors"
       :key="index"
       :style="computeTransform(anchor)"
     />
@@ -24,18 +24,12 @@ export default class PortableDocumentAnnotationLayer extends Vue {
     return this.page.pageNumber;
   }
 
-  get anchors(): Anchor[] {
+  get filteredAnchors(): Anchor[] {
     return this.annotations.reduce((acc: Anchor[], item) => {
       const belongsToPage = (anchor: Anchor) => anchor.page === this.pageNumber;
       const anchors = item.anchors.filter(belongsToPage);
       return anchors.length ? [...acc, ...anchors] : acc;
     }, []);
-  }
-
-  filteredAnnotations(page: PDFPageProxy): Annotation[] {
-    const belongsToPage = (annotation: Annotation) =>
-      annotation.anchors.some(anchor => anchor.page === page.pageNumber);
-    return this.annotations.filter(belongsToPage);
   }
 
   computeTransform(anchor: Anchor) {
