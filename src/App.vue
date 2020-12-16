@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <PortableDocument
+      v-model="annotations"
       :grid="true"
       :zoom="3"
-      src="/sample.pdf"
+      src="/96079ac0e2b9c7245d781ba97d62fdeb4e69c6b8.pdf"
       @loaded="onLoaded"
     />
   </div>
@@ -11,12 +12,20 @@
 
 <script lang="ts">
 import Vue from "vue";
+
 import PortableDocument from "@/components/PortableDocument";
+import { annotations } from "@/assets/data";
 
 export default Vue.extend({
   name: "App",
   components: {
     PortableDocument
+  },
+
+  data() {
+    return {
+      annotations: annotations
+    };
   },
 
   methods: {

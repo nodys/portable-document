@@ -13,3 +13,9 @@ export interface Annotation {
   anchors: Anchor[];
   data?: unknown;
 }
+
+export enum Tool {
+  Select = "select",
+  Highlight = "highlight",
+  Figure = "figure"
+}

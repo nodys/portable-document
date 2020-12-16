@@ -2,7 +2,7 @@
   <div class="portable-document">
     <PortableDocumentLayout :pages="pages" :grid="grid">
       <PortableDocumentPage slot-scope="{ page }" :page="page">
-        <PortableDocumentTextLayer :page="page" />
+        <PortableDocumentTextLayer :page="page" @selection="onSelection" />
         <PortableDocumentAnnotationLayer
           :page="page"
           :annotations="annotations"
@@ -13,13 +13,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Component, Model, Prop, Vue, Watch } from "vue-property-decorator";
+import { v4 as uuid } from "uuid";
 
 import { getDocument, GlobalWorkerOptions } from "pdfjs-dist";
 import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
 import { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist/types/display/api";
 
-import { annotations } from "@/assets/data";
+import { Anchor, Annotation, Tool } from "@/types/annotations";
 
 import PortableDocumentAnnotationLayer from "./PortableDocumentAnnotationLayer.vue";
 import PortableDocumentLayout from "./PortableDocumentLayout.vue";
@@ -37,16 +38,15 @@ GlobalWorkerOptions.workerSrc = pdfjsWorker;
   }
 })
 export default class PortableDocument extends Vue {
+  @Model("update:annotations", { type: Array, default: () => [] })
+  readonly annotations!: Annotation[];
   @Prop({ type: Boolean, default: false }) readonly grid!: boolean;
   @Prop({ type: Number, default: 0 }) readonly zoom!: number;
   @Prop({ type: String, default: "" }) readonly src!: string;
+  @Prop({ type: String, default: Tool.Select }) readonly activeTool!: Tool;
 
   document: PDFDocumentProxy | null = null;
   pages: PDFPageProxy[] = [];
-
-  get annotations() {
-    return annotations;
-  }
 
   @Watch("src")
   onSrcChange() {
@@ -55,6 +55,14 @@ export default class PortableDocument extends Vue {
 
   mounted() {
     this.loadDocument();
+  }
+
+  onSelection(anchors: Anchor[]) {
+    const annotation: Annotation = {
+      id: uuid(),
+      anchors: anchors
+    };
+    this.$emit("update:annotations", [...this.annotations, annotation]);
   }
 
   async loadDocument() {
