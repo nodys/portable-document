@@ -4,7 +4,7 @@
       class="portable-document-annotation-layer__anchor"
       v-for="(anchor, index) in filteredAnchors"
       :key="index"
-      :style="computeTransform(anchor)"
+      :style="getStyle(anchor)"
     />
   </div>
 </template>
@@ -32,7 +32,7 @@ export default class PortableDocumentAnnotationLayer extends Vue {
     }, []);
   }
 
-  computeTransform(anchor: Anchor) {
+  getStyle(anchor: Anchor) {
     const [x, y, width, height] = anchor.transform;
     return {
       top: `${y}px`,
